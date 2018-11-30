@@ -1,29 +1,75 @@
-//conver 2d index to 1d index
-function index(i,j){
-	if(i < 0 || j < 0 || i > rows -1 || j > cols -1){
-		return undefined;
+function Grid(height,width){
+	this.cells = [];//contain a 2d-array of cells
+	this.done = false;//predicator for construction of maze
+	this.findPath = false;
+	this.w= 15;
+	//calculate the # of cols and rows
+	this.cols = (height/this.w);
+	this.rows = (width/this.w);
+	this.current; // the current cell
+	this.foundPath = false;
+
+
+	this.setUp = function(){
+		for (var i = 0; i < this.rows; i++) {
+			var row = [];
+			for (var j = 0; j < this.cols; j++) {
+				var cell = new Cell(i,j,this.w);
+				row.push(cell);
+			}
+			this.cells.push(row);
+		}
+		current = this.cells[0][0];
+		current.parent = undefined;
+		stack.push(current);
+
 	}
-	return i*cols + j;
+
+	this.show = function(){
+		for(var i = 0;i  < this.cells.length;i++){
+			for (var j = 0; j < this.cells[i].length; j++) {
+				this.cells[i][j].show();
+			}
+		}
+	}
+
+	//Construct Maze by using recursive Back Track
+	this.ConstructMaze = function (){
+		recursiveBackTrack();
+	}
 }
+
 
 //add unvisited neighbours
-function pushNeighbors(cell,neighbors){
+function pushNeighbors(cell,unvisited){
 	if(cell && !cell.visited){
-		neighbors.push(cell);
+		unvisited.push(cell);
 	}
 }
 
+
+
+function index(i,j){
+	if(i < 0 || j < 0 || i > Maze.rows-1 || j > Maze.cols-1){
+		return undefined;
+	}
+
+	return Maze.cells[i][j];
+}
 
 
 //cell classs
-
-function Cell(i,j){
+function Cell(i,j,w){
 	//i represents the ith row na dj represents the jth column	
 	this.i = i;
 	this.j = j;
-	var x = this.j * w;
-	var y = this.i * w;
-	this.visited = false; 
+	this.w = w;
+	var x = this.j * Maze.w;
+	var y = this.i * Maze.w;
+	this.visited = false;
+	this.isPath = false;
+	this.neighbors = []; 
+
 
 	this.walls = [true,true,true,true]; //An array to store the existence of the wall correspnd to the cel
 	//in this orider [top,left,bottom,right]
@@ -33,58 +79,66 @@ function Cell(i,j){
 		stroke(strokeness);
 
 		if(this.walls[0]){
-			line(x,y,x+w,y);
+			line(x,y,x+Maze.w,y);
 		}
 		
 		if(this.walls[1]){
-			line(x,y,x,y+w);
+			line(x,y,x,y+Maze.w);
 		}
 
 		if(this.walls[2]){
-			line(x,y+w,x+w,y+w);
+			line(x,y+Maze.w,x+Maze.w,y+Maze.w);
 		}
 		
 		if(this.walls[3]){
-			line(x+w,y,x+w,y+w);
+			line(x+Maze.w,y,x+Maze.w,y+Maze.w);
 		}
 
 		if(this.visited){
 			noStroke();
 			fill(255,0,255,100);
-			rect(x,y,w,w);
+			rect(x,y,Maze.w,Maze.w);
 		}
+
+		if(this.isPath){
+			noStroke();
+			fill(0,0,255,100);
+			rect(x,y,Maze.w,Maze.w);
+		}
+
 	}
 
 
 	//check if this.Neighbous have benn visited or not
 	this.checkNeighbors = function() {
-		var neighbors = [];//an array contains unvisited neighbors
-		var top = grid[index(i-1,j)];
-		var right = grid[index(i,j+1)];
-		var left = grid[index(i,j-1)];
-		var bottom = grid[index(i+1,j)];
+		var unvisited = [];//an array contains unvisited neighbors
+		var top = index(i-1,j);
+		var right = index(i,j+1);
+		var left = index(i,j-1);
+		var bottom = index(i+1,j);
+		var parent;
 
-		pushNeighbors(top,neighbors);
-		pushNeighbors(right,neighbors);
-		pushNeighbors(left,neighbors);
-		pushNeighbors(bottom,neighbors);
+		pushNeighbors(top,unvisited);
+		pushNeighbors(right,unvisited);
+		pushNeighbors(left,unvisited);
+		pushNeighbors(bottom,unvisited);
 
 		//if there exist a neighbor that has not yet been visited,
 		//randomly pick an neighour to be the wall
 
-		if(neighbors.length > 0 ){
-			var chosen  = floor(random(0,neighbors.length));
-			return neighbors[chosen];
+		if(unvisited.length > 0 ){
+			var chosen  = floor(random(0,unvisited.length));
+			return unvisited[chosen];
 		}else{
 			return undefined;
 		}
 	}
 
 	//highlight current cell
-	this.highlight = function(){
+	this.highlight = function(color){
 		noStroke();
-		fill(0,0,255,100);
-		rect(x,y,w,w);
+		fill(color);
+		rect(x,y,Maze.w,Maze.w);
 	}
 }
 
