@@ -1,0 +1,19 @@
+ #maze{
+	display: table;
+  	margin-right: auto;
+  	margin-left: auto;
+}
+
+
+.mazeConfig{
+	display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px;
+}
+
+#solve{
+	position: relative;
+	left: 40%;
+}
+
+

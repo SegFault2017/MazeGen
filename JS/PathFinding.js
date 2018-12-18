@@ -1,5 +1,7 @@
-var queue = [];
-var start;
+var queue = []; //queue for DFS
+var start; //start node
+
+//initilization for BFS
 function initBFS(){
 	start = current;
 	queue.push(start);
@@ -7,11 +9,12 @@ function initBFS(){
 	start.parent = undefined;	
 }
 
-
+//BFS algorithm
 function BFS(end){
 	if(queue.length > 0){
 		var top = queue[0];
 		queue.splice(0,1);
+		//Push unvisited neighbors to stack
 		for (var i = 0; i < top.neighbors.length; i++) {
 			var cell = top.neighbors[i];
 			if(!cell.visited){
@@ -19,7 +22,7 @@ function BFS(end){
 				queue.push(cell);
 				cell.parent = top;
 			}
-			if(cell == end){
+			if(cell == end){//Construct path if found
 				Maze.findPath = false;
 				Maze.foundPath = true;
 				resetVisited();
@@ -31,7 +34,7 @@ function BFS(end){
 	}
 }
 
-
+//initilization for BFS
 function initDFS(){
 	start = current;
 	stack.push(start);
@@ -49,13 +52,15 @@ function getNeighbor(cell){
 	return undefined;
 }
 
+
+//DFS algorithm
 function DFS(end){
 	start.highlight(color(0,255,0));
 	var next = getNeighbor(start);
 	if(next){
 		next.visited = true;
 		next.parent = start;
-		if(next == end){
+		if(next == end){//Contruct path if found
 			Maze.findPath = false;
 			Maze.foundPath = true;
 			resetVisited();

@@ -1,11 +1,44 @@
 <html>
   <head>
-   <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.7.2/p5.js"></script>
-   <script  src="JS/Cell.js"></script>
+  	<link rel="stylesheet" type="text/css" href="CSS/style.css">
+   <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/addons/p5.dom.js"></script>
+
+    <script  src="JS/Cell.js"></script>
     <script src="JS/sketch.js"></script>
     <script src="JS/DFSBackTracker.js"></script>
     <script src="JS/PathFinding.js"></script>
+
+
+
   </head>
   <body>
+  	<div id = "maze">
+  		<div id = "board"></div>
+  		<div class = "mazeConfig">
+
+  			<div id = "construct">
+  				<label>Construction:</label>
+				<select>
+				  <option value="recursiveB">Recursive Backtrack</option>
+				  <option value="kurskal">Kruskal</option>
+				  <option value="prim">Prim's</option>
+				</select>
+				<button>Generate!</button>
+  			</div>
+			
+  			<div id = "solve">
+  				<label>Solution:</label>
+
+				<select>
+				  <option value="bfs">BFS</option>
+				  <option value="dfs">DFS</option>
+				  <option value="aStar">A*</option>
+				</select>
+
+				<button>Solve!</button>
+  			</div>
+		</div>
+  	</div>
   </body>
 </html>

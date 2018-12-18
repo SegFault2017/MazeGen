@@ -2,7 +2,7 @@ function Grid(height,width){
 	this.cells = [];//contain a 2d-array of cells
 	this.done = false;//predicator for construction of maze
 	this.findPath = false;
-	this.w= 15;
+	this.w= 20;
 	//calculate the # of cols and rows
 	this.cols = (height/this.w);
 	this.rows = (width/this.w);

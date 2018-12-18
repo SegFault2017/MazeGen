@@ -2,10 +2,9 @@ var done = true;
 var Maze = [];
 var end;
 
-
 function setup(){
-	createCanvas(900,900);
-	//frameRate(60);
+	var cnv = createCanvas(600,600);
+	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();
 }
@@ -17,8 +16,8 @@ function draw(){
 		Maze.ConstructMaze();
 	}else{
 		if(Maze.findPath){
-			//BFS(end);
-			DFS(end);
+			BFS(end);
+			//DFS(end);
 		}
 	}
 }
@@ -31,7 +30,7 @@ function mousePressed(){
 	end = Maze.cells[rows-1][cols-1];
 
 	//initBFS();
-	initDFS();
+	//initDFS();
 	Maze.findPath = true;
 }
 
