@@ -3,9 +3,9 @@ var Maze = [];
 var end;
 
 
-var BFS = "bfs";
-var DFS = "dfs";
-var chosenMeh = BFS;
+var BFSMeth = "bfs";
+var DFSMeth = "dfs";
+var chosenMeth = BFSMeth;
 
 
 function setup(){
@@ -28,15 +28,16 @@ function draw(){
 }
 
 function execMethod(){
-	if(chosenMeh == BFS){
+	if(chosenMeth == BFSMeth){
 		BFS(end);
 	}else{
 		DFS(end);
 	}
 }
 
+
 function chooseMeth(method){
-	chosenMeh = method;
+	chosenMeth = method;
 }
 
 function constructMeth(){
@@ -45,7 +46,7 @@ function constructMeth(){
 	end = Maze.cells[rows-1][cols-1];
 	Maze.findPath = true;
 
-	if(chosenMeh == BFS){
+	if(chosenMeth == BFSMeth){
 		initBFS();
 	}else{
 		initDFS();

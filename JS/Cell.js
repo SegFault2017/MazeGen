@@ -69,6 +69,7 @@ function Cell(i,j,w){
 	this.visited = false;
 	this.isPath = false;
 	this.neighbors = []; 
+	var parent = null;
 
 
 	this.walls = [true,true,true,true]; //An array to store the existence of the wall correspnd to the cel
@@ -116,7 +117,6 @@ function Cell(i,j,w){
 		var right = index(i,j+1);
 		var left = index(i,j-1);
 		var bottom = index(i+1,j);
-		var parent;
 
 		pushNeighbors(top,unvisited);
 		pushNeighbors(right,unvisited);

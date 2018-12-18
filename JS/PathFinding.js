@@ -3,6 +3,7 @@ var start; //start node
 
 //initilization for BFS
 function initBFS(){
+	queue = [];
 	start = current;
 	queue.push(start);
 	start.visited = true;
@@ -36,6 +37,7 @@ function BFS(end){
 
 //initilization for BFS
 function initDFS(){
+	stack = [];
 	start = current;
 	stack.push(start);
 	start.visited = true;
@@ -91,3 +93,4 @@ function ConstructPath(end){
 	}
 	noFill();
 }
+

@@ -2,8 +2,6 @@
 var stack = [];//stack of cell
 var current;//current selss starts at 0,0
 
-
-
 function resetVisited(){
 	//Reset Visited 
 		for (var i = 0; i < Maze.cells.length; i++) {
