@@ -2,6 +2,12 @@ var done = true;
 var Maze = [];
 var end;
 
+
+var BFS = "bfs";
+var DFS = "dfs";
+var chosenMeh = BFS;
+
+
 function setup(){
 	var cnv = createCanvas(600,600);
 	cnv.parent('board');
@@ -16,22 +22,35 @@ function draw(){
 		Maze.ConstructMaze();
 	}else{
 		if(Maze.findPath){
-			BFS(end);
-			//DFS(end);
+			execMethod();
 		}
 	}
 }
 
+function execMethod(){
+	if(chosenMeh == BFS){
+		BFS(end);
+	}else{
+		DFS(end);
+	}
+}
 
+function chooseMeth(method){
+	chosenMeh = method;
+}
 
-function mousePressed(){
+function constructMeth(){
 	var rows = Maze.rows;
 	var cols = Maze.cols;
 	end = Maze.cells[rows-1][cols-1];
-
-	//initBFS();
-	//initDFS();
 	Maze.findPath = true;
+
+	if(chosenMeh == BFS){
+		initBFS();
+	}else{
+		initDFS();
+	}
+
 }
 
 

@@ -24,19 +24,19 @@
 				  <option value="kurskal">Kruskal</option>
 				  <option value="prim">Prim's</option>
 				</select>
-				<button>Generate!</button>
+				<button type="button" >Generate!</button>
   			</div>
 			
   			<div id = "solve">
   				<label>Solution:</label>
 
-				<select>
+				<select onchange="chooseMeth(this.value)">
 				  <option value="bfs">BFS</option>
 				  <option value="dfs">DFS</option>
 				  <option value="aStar">A*</option>
 				</select>
 
-				<button>Solve!</button>
+				<button type="button" onclick="constructMeth()">Solve!</button>
   			</div>
 		</div>
   	</div>
