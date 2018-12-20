@@ -8,11 +8,6 @@ function Grid(height,width){
 	this.rows = (width/this.w);
 	this.foundPath = false;
 
-	//heuristic function
-	this.f = 0;
-	this.g = 0;
-	this.h =0;
-
 
 	this.setUp = function(){
 		for (var i = 0; i < this.rows; i++) {
@@ -41,6 +36,16 @@ function Grid(height,width){
 	this.ConstructMaze = function (){
 		recursiveBackTrack();
 	}
+
+	this.reSolve = function(){
+		for (var i = 0; i < this.cells.length; i++) {
+			for (var j = 0; j< this.cells[i].length; j++) {
+				this.cells[i][j].parent = undefined;
+				this.cells[i][j].isPath = false;
+			}
+		}
+	}
+
 }
 
 
@@ -74,6 +79,11 @@ function Cell(i,j,w){
 	this.isPath = false;
 	this.neighbors = []; 
 	var parent = null;
+
+	//heuristic function
+	this.f = 0;
+	this.g = 0;
+	this.h =0;
 
 
 	this.walls = [true,true,true,true]; //An array to store the existence of the wall correspnd to the cel

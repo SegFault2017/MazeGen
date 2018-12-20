@@ -78,20 +78,12 @@ function DFS(end){
 	}
 }
 
-//remove item form arr
-removeFromArr(item,arr){
-	for(var i = arr.length-1; i>-1;i++){
-		if(arr[i] === item){
-			arr.splice(i,1);
-		}
-	}
-}
-
 
 //Heuristic function
 //return Euclidean Distance
 function heuristic(a,b){
-	return dist(a.i,a.j,b.i,b.j);
+	//return dist(a.i,a.j,b.i,b.j);
+	return abs(a.i-b.i) + abs(a.j - b.j);
 }
 
 //Calculate f cose
@@ -115,6 +107,8 @@ function AStar(end){
 
 		//current lowest f cost cell
 		current = queue[lowestC];
+		current.highlight(color(0,255,0));
+		queue.splice(lowestC,1);
 
 		if(current == end){
 			Maze.findPath = false;
@@ -124,21 +118,22 @@ function AStar(end){
 			return;
 		}
 
+		
 		for (var i = 0; i < current.neighbors.length; i++) {
 			var neighbor = current.neighbors[i];
-			if(!neighbors.visited){
+			if(!neighbor.visited){
 				neighbor.visited = true;
 				var gCost = current.g + 1;
 				if(queue.includes(neighbor)){
 					if(gCost < neighbor.g){
-						calF(cell,end,gCost);
+						calF(neighbor,end,gCost);
 						neighbor.parent = current;
-					}else{
-						calF(cell,end,gCost);
-						neighbor.parent = current;
-						openSet(neighbor);
-					}	
-				}
+					}
+				}else{
+					calF(neighbor,end,gCost);
+					neighbor.parent = current;
+					queue.push(neighbor);
+				}	
 			}
 		}
 

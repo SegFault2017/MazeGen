@@ -169,9 +169,6 @@ function findPath(){
 					neighbor.h = heuristic(neighbor,end);
 					neighbor.f = neighbor.g + neighbor.h;
 				}
-
-				
-
 			}
 
 		}

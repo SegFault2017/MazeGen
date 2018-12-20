@@ -10,7 +10,8 @@ var chosenMeth = BFSMeth;
 
 
 function setup(){
-	 var cnv = createCanvas(600,600);
+	// frameRate(30);
+	var cnv = createCanvas(600,600);
 	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();
@@ -33,6 +34,8 @@ function draw(){
 function execMethod(){
 	if(chosenMeth == BFSMeth){
 		BFS(end);
+	}else if(chosenMeth == AStarMeth){
+		AStar(end);
 	}else{
 		DFS(end);
 	}
@@ -44,6 +47,9 @@ function chooseMeth(method){
 }
 
 function constructMeth(){
+	if(!Maze.findPath){
+		Maze.reSolve();
+	}
 	var rows = Maze.rows;
 	var cols = Maze.cols;
 	end = Maze.cells[rows-1][cols-1];
