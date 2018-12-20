@@ -5,14 +5,17 @@ var end;
 
 var BFSMeth = "bfs";
 var DFSMeth = "dfs";
+var AStarMeth = "aStar"
 var chosenMeth = BFSMeth;
 
 
 function setup(){
-	var cnv = createCanvas(600,600);
+	 var cnv = createCanvas(600,600);
 	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();
+
+
 }
 
 function draw(){
@@ -46,11 +49,7 @@ function constructMeth(){
 	end = Maze.cells[rows-1][cols-1];
 	Maze.findPath = true;
 
-	if(chosenMeth == BFSMeth){
-		initBFS();
-	}else{
-		initDFS();
-	}
+	initMethod(chooseMeth);
 
 }
 

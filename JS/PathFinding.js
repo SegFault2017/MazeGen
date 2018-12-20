@@ -1,20 +1,26 @@
 var queue = []; //queue for DFS
 var start; //start node
 
-//initilization for BFS
-function initBFS(){
-	queue = [];
+
+//initialization
+function initMethod(method){
 	start = current;
-	queue.push(start);
 	start.visited = true;
-	start.parent = undefined;	
+	start.parent = undefined;
+	if(method == BFSMeth || AStarMeth){
+		queue = [];
+		queue.push(start);
+	}else{
+		stack = [];
+		stack.push(start);
+	}
 }
 
 //BFS algorithm
 function BFS(end){
 	if(queue.length > 0){
 		var top = queue[0];
-		queue.splice(0,1);
+		queue.shift();
 		//Push unvisited neighbors to stack
 		for (var i = 0; i < top.neighbors.length; i++) {
 			var cell = top.neighbors[i];
@@ -28,20 +34,12 @@ function BFS(end){
 				Maze.foundPath = true;
 				resetVisited();
 				ConstructPath(end);
+				return;
 			}
 		}
 	}else{
 		Maze.findPath = false;
 	}
-}
-
-//initilization for BFS
-function initDFS(){
-	stack = [];
-	start = current;
-	stack.push(start);
-	start.visited = true;
-	start.parent = undefined;
 }
 
 function getNeighbor(cell){
@@ -78,9 +76,76 @@ function DFS(end){
 	}else{
 		Maze.findPath = false;
 	}
-
 }
 
+//remove item form arr
+removeFromArr(item,arr){
+	for(var i = arr.length-1; i>-1;i++){
+		if(arr[i] === item){
+			arr.splice(i,1);
+		}
+	}
+}
+
+
+//Heuristic function
+//return Euclidean Distance
+function heuristic(a,b){
+	return dist(a.i,a.j,b.i,b.j);
+}
+
+//Calculate f cose
+function calF(cell,end,val){
+	cell.g = val;
+	cell.h = heuristic(cell,end);
+	cell.f = cell.g + cell.h;
+}
+
+
+//A* algorithm
+function AStar(end){
+	if(queue.length > 0){
+		var lowestC = 0;
+		//find lowest cost in frontier
+		for (var i = 0; i < queue.length; i++) {
+			if(queue[i].f < queue[lowestC].f){
+				lowestC = i;
+			}
+		}
+
+		//current lowest f cost cell
+		current = queue[lowestC];
+
+		if(current == end){
+			Maze.findPath = false;
+			Maze.foundPath = true;
+			resetVisited();
+			ConstructPath(end);
+			return;
+		}
+
+		for (var i = 0; i < current.neighbors.length; i++) {
+			var neighbor = current.neighbors[i];
+			if(!neighbors.visited){
+				neighbor.visited = true;
+				var gCost = current.g + 1;
+				if(queue.includes(neighbor)){
+					if(gCost < neighbor.g){
+						calF(cell,end,gCost);
+						neighbor.parent = current;
+					}else{
+						calF(cell,end,gCost);
+						neighbor.parent = current;
+						openSet(neighbor);
+					}	
+				}
+			}
+		}
+
+	}else{
+		Maze.findPath = false;
+	}
+}
 
 
 //Construct Path

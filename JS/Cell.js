@@ -6,8 +6,12 @@ function Grid(height,width){
 	//calculate the # of cols and rows
 	this.cols = (height/this.w);
 	this.rows = (width/this.w);
-	this.current; // the current cell
 	this.foundPath = false;
+
+	//heuristic function
+	this.f = 0;
+	this.g = 0;
+	this.h =0;
 
 
 	this.setUp = function(){
