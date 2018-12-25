@@ -16,7 +16,6 @@ function Node(prioity,item){
 
 function MinHeap(){
 	this.pQueue =[];
-
 	this.getParent = function(i){
 		return Math.floor((i-1)/2);
 	}
@@ -45,7 +44,7 @@ function MinHeap(){
 	}
 
 	//extract the root from the heap
-	this.delete = function(){
+	this.extract = function(){
 		if(this.pQueue.length == 0){
 			return undefined;
 		}
@@ -91,9 +90,20 @@ function MinHeap(){
 
 	}
 
+	this.search = function(target){
+		for(var i = 0;i < this.pQueue.length;i++){
+			if(this.pQueue[i] === target){
+				return true;
+			}
+		}
+		return false;
+	}
+
 	this.getMin = function(){
 		return this.pQueue[0];
 	}
+
+
 
 
 }
