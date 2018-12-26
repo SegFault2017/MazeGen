@@ -22,7 +22,7 @@ RecursiveBackTracker.prototype.constructMaze = function(){
 			this.current = next;
 		}else if(this.stack.length > 0){
 			var cell = this.stack.pop();
-			//pop off the cell from the stack and make it as the current cell
+			//pops off the cell from the stack and make it as the current cell
 			this.current = cell;
 		}
 	}

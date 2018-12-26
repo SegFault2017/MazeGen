@@ -2,11 +2,11 @@ var Maze = [];
 
 function setup(){
 	// frameRate(30);
-	var cnv = createCanvas(600,600);
+	var cnv = createCanvas(900,900);
 	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();
-
+	// frameRate(10);
 }
 
 function draw(){

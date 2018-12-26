@@ -2,8 +2,7 @@ function Grid(height,width){
 	this.cells = [];//contain a 2d-array of cells
 	this.done = false;//predicator for construction of maze
 	this.findPath = false;
-	this.w= 20;
-
+	this.w= 30;
 	this.start;
 	this.end;
 
@@ -38,7 +37,7 @@ function Grid(height,width){
 
 		this.start = this.cells[0][0];
 		this.end = this.cells[this.rows-1][this.cols-1];
-		this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
+		this.mazeConstructor = new Kruskal(this.start,this.end);
 		this.solution = new BFS(this.start,this.end);
 
 	}
@@ -88,8 +87,8 @@ function Grid(height,width){
 			case constructor.RBT:
 			this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
 				break;
-			case constructor.kurskal:
-			this.mazeConstructor = new Kurskal(this.star,this.end);
+			case constructor.kruskal:
+			this.mazeConstructor = new Kruskal(this.star,this.end);
 				break;
 			case constructor.prim:
 			this.mazeConstructor = new Prim(this.star,this,end);
@@ -111,5 +110,11 @@ function Grid(height,width){
 				this.cells[i][j].visited = false;
 			}
 		}
+	}
+
+
+	//convert 2d index to 1d
+	this.toOneD = function(i,j){
+		return i*this.cols + j;
 	}
 }

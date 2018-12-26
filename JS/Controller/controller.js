@@ -7,12 +7,12 @@ const solver = {
 
 const constructor = {
 	RBT:"recursiveB",
-	kurskal:"kurskal",
+	kruskal:"kruskal",
 	prim:"prim"
 }
 
 var chosenMeth = solver.bfs;
-var chosenConstructor = constructor.RBT;
+var chosenConstructor = constructor.kruskal;
 
 
 function chooseMeth(method){
