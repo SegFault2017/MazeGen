@@ -36,6 +36,7 @@ function Cell(i,j,w){
 	this.isPath = false;
 	this.neighbors = []; 
 	this.parent = null;
+	this.inFrontier = false;
 
 	//heuristic function
 	this.f = 0;
@@ -105,6 +106,7 @@ function Cell(i,j,w){
 		}
 	}
 
+
 	//highlight current cell
 	Cell.prototype.highlight = function(color){
 		var x = this.j * Maze.w;
@@ -112,6 +114,14 @@ function Cell(i,j,w){
 		noStroke();
 		fill(color);
 		rect(x,y,Maze.w,Maze.w);
+	}
+
+	//Recover walls in all 4 directions
+	Cell.prototype.recoverWalls = function(){
+		this.walls[Dir.top] = true;
+		this.walls[Dir.left] = true;
+		this.walls[Dir.right] = true;
+		this.walls[Dir.bottom] = true;
 	}
 
 

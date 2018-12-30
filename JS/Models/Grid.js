@@ -2,7 +2,7 @@ function Grid(height,width){
 	this.cells = [];//contain a 2d-array of cells
 	this.done = false;//predicator for construction of maze
 	this.findPath = false;
-	this.w= 30;
+	this.w= 15;
 	this.start;
 	this.end;
 
@@ -37,7 +37,7 @@ function Grid(height,width){
 
 		this.start = this.cells[0][0];
 		this.end = this.cells[this.rows-1][this.cols-1];
-		this.mazeConstructor = new Kruskal(this.start,this.end);
+		this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
 		this.solution = new BFS(this.start,this.end);
 
 	}
@@ -64,6 +64,8 @@ function Grid(height,width){
 				this.cells[i][j].isPath = false;
 			}
 		}
+		this.foundPath = false;
+		this.findPath = false;
 	}
 
 	//Change Solver Method
@@ -108,6 +110,7 @@ function Grid(height,width){
 		for (var i = 0; i < this.cells.length; i++) {
 			for (var j = 0; j < this.cells[i].length; j++) {
 				this.cells[i][j].visited = false;
+				this.cells[i][j].inFrontier = false;
 			}
 		}
 	}
@@ -117,4 +120,15 @@ function Grid(height,width){
 	this.toOneD = function(i,j){
 		return i*this.cols + j;
 	}
+
+
+	//recover walls when re-contruct
+	this.recoverWalls = function(){
+		for (var i = 0; i < Maze.cells.length; i++) {
+			for(var j = 0 ; j < Maze.cells[i].length; j++){
+				Maze.cells[i][j].recoverWalls();
+			}
+		}		
+	}
+
 }

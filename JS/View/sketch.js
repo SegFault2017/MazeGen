@@ -2,7 +2,7 @@ var Maze = [];
 
 function setup(){
 	// frameRate(30);
-	var cnv = createCanvas(900,900);
+	var cnv = createCanvas(600,600);
 	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();

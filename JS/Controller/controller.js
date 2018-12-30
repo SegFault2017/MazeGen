@@ -12,15 +12,16 @@ const constructor = {
 }
 
 var chosenMeth = solver.bfs;
-var chosenConstructor = constructor.kruskal;
+var chosenConstructor = constructor.RBT;
 
 
 function chooseMeth(method){
 	chosenMeth = method;
 }
 
+//listenser for solve event
 function selectMeth(){
-	if(!Maze.findPath){
+	if(Maze.foundPath){
 		Maze.reSolve();
 	}
 	
@@ -33,6 +34,14 @@ function chooseConstructor(method){
 	chosenConstructor = method;
 }
 
+
+//listener for construct maze event
 function selectConstructor(){
-	Maze.changeConstructor(chosenMeth);
+	if(Maze.foundPath){
+		Maze.reSolve();
+	}
+	Maze.changeConstructor(chosenConstructor);
+	//Reset Maze
+	Maze.recoverWalls();
+	Maze.done = false;
 }

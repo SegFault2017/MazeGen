@@ -5,9 +5,9 @@ function DFS(start,end){
 	//Return a unvisited neighbor cell
 	this.getNeighbor = function(cell){
 		for (var i = 0; i < cell.neighbors.length; i++) {
-		if(!cell.neighbors[i].visited){
-			return cell.neighbors[i];
-		}
+			if(cell.neighbors[i].visited == false){
+				return cell.neighbors[i];
+			}
 	}
 
 	return undefined;
@@ -30,13 +30,15 @@ DFS.prototype.findPath = function(end){
 		next.parent = this.current;
 		//Check if current cell exits
 		if(this.isReachEnd(next)){return;}
-		this.stack.push(next);
+		this.stack.push(this.current);
 		this.current = next;
 
 	}else if(this.stack.length > 0){
 		var cell = this.stack.pop();
 		this.current = cell;
-	}else{
+	}
+
+	if(this.stack.length == 0){
 		Maze.findPath = false;
 	}
 }

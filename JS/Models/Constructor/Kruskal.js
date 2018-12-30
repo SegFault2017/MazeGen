@@ -1,4 +1,6 @@
-function makeEdges(){
+//Construct edgeList
+//Contains all edges of all possible vertices combinationsv
+var makeEdges = function(){
 	
 	var edgeList =[];
 	for (var i = 0; i < Maze.cells.length; i++) {
@@ -50,7 +52,10 @@ Kruskal.prototype.constructMaze = function() {
 		//1.Randomly select an edge i
 		var edge = this.edgeList.pop();
 		edge[0].visited = true;
+		edge[0].highlight(color(0,255,0));
 		edge[1].visited = true;
+		edge[1].highlight(color(0,255,0));
+
 
 		//2.Get subset by converting 2d index to 1d index
 		var indexA = Maze.toOneD(edge[0].i,edge[0].j);
@@ -61,6 +66,8 @@ Kruskal.prototype.constructMaze = function() {
 		if(rootA != rootB){
 			this.disjointSet.union(indexA,indexB);
 			this.removeWalls(edge[0],edge[1]);
+			edge[0].neighbors.push(edge[1]);
+			edge[1].neighbors.push(edge[0]);
 		}
 		
 	}else{
