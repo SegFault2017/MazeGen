@@ -21,5 +21,3 @@ function draw(){
 	}
 }
 
-
-

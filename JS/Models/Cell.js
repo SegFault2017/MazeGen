@@ -124,4 +124,9 @@ function Cell(i,j,w){
 		this.walls[Dir.bottom] = true;
 	}
 
+	//Clear neighbors
+	Cell.prototype.clearNeighbors = function(){
+		this.neighbors.splice(0,this.neighbors.length);
+	}
+
 

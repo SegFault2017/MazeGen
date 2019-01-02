@@ -42,6 +42,5 @@ function selectConstructor(){
 	}
 	Maze.changeConstructor(chosenConstructor);
 	//Reset Maze
-	Maze.recoverWalls();
-	Maze.done = false;
+	Maze.reset();
 }

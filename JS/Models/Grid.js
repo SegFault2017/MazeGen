@@ -2,7 +2,7 @@ function Grid(height,width){
 	this.cells = [];//contain a 2d-array of cells
 	this.done = false;//predicator for construction of maze
 	this.findPath = false;
-	this.w= 15;
+	this.w= 120;
 	this.start;
 	this.end;
 
@@ -122,13 +122,19 @@ function Grid(height,width){
 	}
 
 
-	//recover walls when re-contruct
-	this.recoverWalls = function(){
+	//reset Maze property when ready to re-contruct
+	this.reset = function(){
 		for (var i = 0; i < Maze.cells.length; i++) {
 			for(var j = 0 ; j < Maze.cells[i].length; j++){
 				Maze.cells[i][j].recoverWalls();
+				//clear out neighbors for each cell
+				Maze.cells[i][j].clearNeighbors();
 			}
-		}		
+		}
+
+		//Ready to reconstruct
+		this.done = false;		
 	}
+
 
 }
