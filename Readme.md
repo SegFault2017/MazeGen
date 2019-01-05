@@ -1,7 +1,7 @@
 ## Maze Generator and Path Finding
 Generate an n x n maze and find a path using A* algorithm.
 
-##Constructor Methods
+## Constructor Methods
 
 1. Recursive Backtracker(Default)
 2. Kruskal

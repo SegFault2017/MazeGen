@@ -10,7 +10,7 @@
 
   			<div id = "construct">
           Steps:
-          <input type="checkbox" id ="steps"  onclick="showSteps()">
+          <input type="checkbox" id ="steps" onclick="showSteps()">
 
   				<label>Construction:</label>
   				<select  name= "constructor" onchange="chooseConstructor(this.value)">
@@ -28,12 +28,19 @@
   				  <option value="bfs">BFS</option>
   				  <option value="dfs">DFS</option>
   				  <option value="aStar">A* (Manhanttan)</option>
-				  </select>
+				  </select> 
+            <button type="button" onclick="selectMeth()">Solve!</button> 
+        </div>
 
-				<button type="button" onclick="selectMeth()">Solve!</button>
-  			</div>
-
-		  </div>
+        <div id="shapes">
+            <label>Cell Shapes:</label>
+            <select onchange="chooseShape(this.value)">
+              <option value="rectangular">Rectangular</option>
+              <option value="hexagonal">Hexagonal</option>
+              <option value="triangular">Triangular</option>
+            </select>
+      </div>
+  		</div>  
   	</div>
 
     <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
@@ -47,7 +54,10 @@
 
       <!-- Maze Class -->
       <script src="JS/Models/Grid.js"></script>
-      <script src="JS/Models/Cell.js"></script>
+      <script src="JS/Models/Cell/Cell.js"></script>
+      <script src="JS/Models/Cell/Rectangular.js"></script>
+      <script src="JS/Models/Cell/Triangular.js"></script>
+      <script src="JS/Models/Cell/Hexagonal.js"></script>
 
       <!-- Constructor -->
       <script src="JS/Models/Constructor/Constructor.js"></script>

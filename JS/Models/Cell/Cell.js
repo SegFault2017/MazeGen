@@ -10,32 +10,23 @@ function index(i,j){
 	if(i < 0 || j < 0 || i > Maze.rows-1 || j > Maze.cols-1){
 		return undefined;
 	}
-
 	return Maze.cells[i][j];
-}
-
-
-//Constant Variables
-const Dir = {
-	top:0,
-	left:1,
-	bottom:2,
-	right:3
 }
 
 
 //cell classs
 function Cell(i,j,w){
+	//location
 	//i represents the ith row na dj represents the jth column	
 	this.i = i;
 	this.j = j;
 	this.w = w;
 	var x = this.j * Maze.w;
 	var y = this.i * Maze.w;
-	this.visited = false;
-	this.isPath = false;
-	this.neighbors = []; 
-	this.parent = null;
+	this.visited = false;//predicator for visiting
+	this.isPath = false;//predicator if current is part of the solution
+	this.neighbors = []; //indicate neighbors of current cell
+	this.parent = null;//indicate parent of current cell
 	this.inFrontier = false;
 
 	//heuristic function
@@ -43,7 +34,7 @@ function Cell(i,j,w){
 	this.g = 0;
 	this.h =0;
 
-
+	//0 is always the top wall
 	this.walls = [true,true,true,true]; //An array to store the existence of the wall correspnd to the cel
 	//in this orider [top,left,bottom,right]
 
@@ -53,19 +44,19 @@ function Cell(i,j,w){
 		var strokeness = 255;
 		stroke(strokeness);
 
-		if(this.walls[Dir.top]){
+		if(this.walls[0]){
 			line(x,y,x+Maze.w,y);
 		}
 		
-		if(this.walls[Dir.left]){
+		if(this.walls[1]){
 			line(x,y,x,y+Maze.w);
 		}
 
-		if(this.walls[Dir.bottom]){
+		if(this.walls[2]){
 			line(x,y+Maze.w,x+Maze.w,y+Maze.w);
 		}
 		
-		if(this.walls[Dir.right]){
+		if(this.walls[3]){
 			line(x+Maze.w,y,x+Maze.w,y+Maze.w);
 		}
 
@@ -118,10 +109,10 @@ function Cell(i,j,w){
 
 	//Recover walls in all 4 directions
 	Cell.prototype.recoverWalls = function(){
-		this.walls[Dir.top] = true;
-		this.walls[Dir.left] = true;
-		this.walls[Dir.right] = true;
-		this.walls[Dir.bottom] = true;
+		this.walls[0] = true;
+		this.walls[1] = true;
+		this.walls[2] = true;
+		this.walls[3] = true;
 	}
 
 	//Clear neighbors

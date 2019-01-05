@@ -1,0 +1,3 @@
+function Rectangualr(i,j){
+	
+}
