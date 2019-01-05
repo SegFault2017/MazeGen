@@ -8,12 +8,14 @@
 .mazeConfig{
 	display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-gap: 10px;
+    grid-gap: 5px;
 }
 
 #solve{
-	position: relative;
-	left: 7%;
+	/*position: relative;*/
+	/*left: 7%;*/
 }
 
-
+#dropList option{
+	width: 50px;
+}

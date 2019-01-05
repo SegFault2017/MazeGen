@@ -47,7 +47,35 @@ Kruskal.prototype = Object.create(Constructor.prototype);
 //Start off with every single cell is a disjoint set and
 //randomly pick a disjiont set and it's neighbors to join
 Kruskal.prototype.constructMaze = function() {
+	while(this.disjointSet.subsetSize > 1){
+		//1.Randomly select an edge i
+		var edge = this.edgeList.pop();
+		edge[0].visited = true;
+		edge[0].highlight(color(0,255,0));
+		edge[1].visited = true;
+		edge[1].highlight(color(0,255,0));
 
+
+		//2.Get subset by converting 2d index to 1d index
+		var indexA = Maze.toOneD(edge[0].i,edge[0].j);
+		var indexB = Maze.toOneD(edge[1].i,edge[1].j);
+		var rootA = this.disjointSet.findRoot(indexA);
+		var rootB = this.disjointSet.findRoot(indexB);
+
+		if(rootA != rootB){
+			this.disjointSet.union(indexA,indexB);
+			this.removeWalls(edge[0],edge[1]);
+			edge[0].neighbors.push(edge[1]);
+			edge[1].neighbors.push(edge[0]);
+		}
+		
+	}
+	Maze.done = true;
+	Maze.resetVisited();
+
+}
+
+Kruskal.prototype.constructMazeWithSteps = function() {
 	if(this.disjointSet.subsetSize > 1){
 		//1.Randomly select an edge i
 		var edge = this.edgeList.pop();
@@ -74,7 +102,4 @@ Kruskal.prototype.constructMaze = function() {
 		Maze.done = true;
 		Maze.resetVisited();
 	}
-	
-
-
 };

@@ -2,9 +2,10 @@ function Grid(height,width){
 	this.cells = [];//contain a 2d-array of cells
 	this.done = false;//predicator for construction of maze
 	this.findPath = false;
-	this.w= 120;
+	this.w= 30;
 	this.start;
 	this.end;
+	this.showSteps;//Predicator for drawing effect
 
 	//calculate the # of cols and rows
 	this.cols = (height/this.w);
@@ -16,8 +17,6 @@ function Grid(height,width){
 
 	//solver
 	this.solution = new BFS(this.start,this.end);
-
-
 
 	//---------Methods
 	this.size =function(){
@@ -40,6 +39,10 @@ function Grid(height,width){
 		this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
 		this.solution = new BFS(this.start,this.end);
 
+
+		this.showSteps = document.getElementById('steps').checked;
+
+
 	}
 
 	//Display Maze Grid
@@ -53,7 +56,11 @@ function Grid(height,width){
 
 	//Construct Maze by using recursive Back Track
 	this.build = function (){
-		this.mazeConstructor.constructMaze();
+		if(this.showSteps){
+			this.mazeConstructor.constructMazeWithSteps();
+		}else{
+			this.mazeConstructor.constructMaze();
+		}
 	}
 
 
@@ -106,13 +113,13 @@ function Grid(height,width){
 
 	//Unvisit all cells in Maze
 	this.resetVisited = function(){
-	//Reset Visited 
-		for (var i = 0; i < this.cells.length; i++) {
-			for (var j = 0; j < this.cells[i].length; j++) {
-				this.cells[i][j].visited = false;
-				this.cells[i][j].inFrontier = false;
+		//Reset Visited 
+			for (var i = 0; i < this.cells.length; i++) {
+				for (var j = 0; j < this.cells[i].length; j++) {
+					this.cells[i][j].visited = false;
+					this.cells[i][j].inFrontier = false;
+				}
 			}
-		}
 	}
 
 
@@ -134,6 +141,12 @@ function Grid(height,width){
 
 		//Ready to reconstruct
 		this.done = false;		
+	}
+
+
+	//toggle Drawing effects for both construtor and solver
+	this.toggleSteps = function(){
+		this.showSteps = !showSteps;
 	}
 
 

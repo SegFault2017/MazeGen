@@ -73,6 +73,30 @@ Prim.prototype = Object.create(Constructor.prototype);
 //4.choose a random valid neighbor of the chosen frontier cell
 //5.make a passage of the chosen frontier cell and its chosen neighbor
 Prim.prototype.constructMaze = function(){
+	while(this.frontier.length >0){//Iterate through until the frontier set is empty
+		this.showFrontier();
+
+		//choose a random frontier cell
+		var rand = floor(random(0,this.frontier.length));
+		var next = this.frontier[rand];
+		next.visited = true;
+		this.frontier.splice(rand,1);
+
+		//choose a random valid neighbor of the chosen frontier cell
+		var neighbors = this.getValidNeighbor(next,true).filter(n => n != undefined);
+		var visitedNeighbor = neighbors[floor(random(0,neighbors.length))];
+
+		//make a passage of the chosen frontier cell and its chosen neighbor
+		this.removeWalls(visitedNeighbor,next);
+		visitedNeighbor.neighbors.push(next);
+		next.neighbors.push(visitedNeighbor);
+		this.mark(next);
+	}
+	Maze.done = true;
+	Maze.resetVisited();
+}
+
+Prim.prototype.constructMazeWithSteps = function() {
 	if(this.frontier.length >0){//Iterate through until the frontier set is empty
 		this.showFrontier();
 
@@ -95,5 +119,6 @@ Prim.prototype.constructMaze = function(){
 		Maze.done = true;
 		Maze.resetVisited();
 	}
+};
 
-}
+

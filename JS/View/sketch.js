@@ -11,13 +11,23 @@ function setup(){
 
 function draw(){
 	background(51);
+
 	Maze.show();
 	if (!Maze.done) {
 		Maze.build();
-	}else{
+		
+	}else{//Maze is bulit
+		//Path is found
+
+		if(Maze.foundPath){
+			noLoop();
+		}
+
 		if(Maze.findPath){
 			Maze.solve();
-		}
+		}else{
+			noLoop();
+		}	
 	}
 }
 

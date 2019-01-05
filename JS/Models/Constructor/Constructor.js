@@ -8,6 +8,12 @@ Constructor.prototype.constructMaze = function(){
 	
 }
 
+Constructor.prototype.constructMazeWithSteps= function(){
+
+}
+
+
+//Create a passage between current and next
 Constructor.prototype.removeWalls = function(current,next){
 	var diffX = current.j - next.j;
 	if(diffX > 0 ){

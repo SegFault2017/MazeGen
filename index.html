@@ -1,35 +1,6 @@
 <html>
   <head>
   	<link rel="stylesheet" type="text/css" href="CSS/style.css">
-   <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/addons/p5.dom.js"></script>
-
-  <!-- View -->
-    <script src="JS/View/sketch.js"></script>
-
-  <!--Controller -->
-  <script src="JS/Controller/controller.js"></script>
-
-   <!-- Maze Class -->
-    <script src="JS/Models/Grid.js"></script>
-    <script src="JS/Models/Cell.js"></script>
-
-    <!-- Constructor -->
-    <script src="JS/Models/Constructor/Constructor.js"></script>
-    <script src="JS/Models/Constructor/RecursiveBackTracker.js"></script>
-    <script src="JS/Models/Constructor/Kruskal.js"></script>
-    <script src="JS/Models/Constructor/DisjointSet.js"></script>
-    <script src="JS/Models/Constructor/Prim.js"></script>
-
-    <!-- Solver -->
-    <script src="JS/Models/Solver/PathFinding.js"></script>
-    <script src="JS/Models/Solver/BFS.js"></script>
-    <script src="JS/Models/Solver/DFS.js"></script>
-    <script src="JS/Models/Solver/AStar.js"></script>
-  
-    
-    <script src="JS/Models/MinHeap.js"></script>
-
 
   </head>
   <body>
@@ -38,9 +9,11 @@
   		<div class = "mazeConfig">
 
   			<div id = "construct">
-  				<label>Construction:</label>
+          Steps:
+          <input type="checkbox" id ="steps"  onclick="showSteps()">
 
-  				<select onchange="chooseConstructor(this.value)">
+  				<label>Construction:</label>
+  				<select  name= "constructor" onchange="chooseConstructor(this.value)">
   				  <option value="recursiveB">Recursive Backtrack</option>
   				  <option value="kruskal">Kruskal</option>
   				  <option value="prim">Prim's</option>
@@ -49,10 +22,9 @@
 				  <button type="button" onclick="selectConstructor()">Generate!</button>
   			</div>
 			
-  			<div id = "solve">
+  			<div id = "solve">        
   				<label>Solution:</label>
-
-          <select onchange="chooseMeth(this.value)">
+          <select  onchange="chooseMeth(this.value)">
   				  <option value="bfs">BFS</option>
   				  <option value="dfs">DFS</option>
   				  <option value="aStar">A* (Manhanttan)</option>
@@ -60,7 +32,36 @@
 
 				<button type="button" onclick="selectMeth()">Solve!</button>
   			</div>
+
 		  </div>
   	</div>
+
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/addons/p5.dom.js"></script>
+
+      <!-- View -->
+      <script src="JS/View/sketch.js"></script>
+
+      <!--Controller -->
+      <script src="JS/Controller/controller.js"></script>
+
+      <!-- Maze Class -->
+      <script src="JS/Models/Grid.js"></script>
+      <script src="JS/Models/Cell.js"></script>
+
+      <!-- Constructor -->
+      <script src="JS/Models/Constructor/Constructor.js"></script>
+      <script src="JS/Models/Constructor/RecursiveBackTracker.js"></script>
+      <script src="JS/Models/Constructor/Kruskal.js"></script>
+      <script src="JS/Models/Constructor/DisjointSet.js"></script>
+      <script src="JS/Models/Constructor/Prim.js"></script>
+
+      <!-- Solver -->
+      <script src="JS/Models/Solver/PathFinding.js"></script>
+      <script src="JS/Models/Solver/BFS.js"></script>
+      <script src="JS/Models/Solver/DFS.js"></script>
+      <script src="JS/Models/Solver/AStar.js"></script>
+
+      <script src="JS/Models/MinHeap.js"></script>
   </body>
 </html>
