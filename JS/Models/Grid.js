@@ -146,7 +146,7 @@ function Grid(height,width){
 
 	//toggle Drawing effects for both construtor and solver
 	this.toggleSteps = function(){
-		this.showSteps = !showSteps;
+		this.showSteps = !this.showSteps;
 	}
 
 
