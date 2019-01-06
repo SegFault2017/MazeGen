@@ -8,8 +8,8 @@ function Grid(height,width){
 	this.showSteps;//Predicator for drawing effect
 
 	//calculate the # of cols and rows
-	this.cols = (height/this.w);
-	this.rows = (width/this.w);
+	this.cols = (height-1)/(this.w);
+	this.rows = (width-1)/(this.w);
 	this.foundPath = false;
 
 	//Maze Constructor
@@ -23,17 +23,38 @@ function Grid(height,width){
 		return this.rows * this.cols;
 	}
 
-	//Initializations
-	this.setUp = function(){
+
+
+	//Change Cell Shape
+	this.changeShape = function(i,j,shape){
+		switch(shape){
+			case shapes.Rectangular:
+				return new Rectangular(i,j,numWalls.Rectangular);
+				break;
+			case shapes.Hexagonal:
+				return new Hexagonal(i,j,numWalls.Hexagonal);
+				break;
+			case shapes.Triangular:
+				return new Triangular(i,j,numWalls.Triangular);
+				break;
+		}
+	}
+
+	//Set up grid
+	this.setUpGrid = function(shape){
 		for (var i = 0; i < this.rows; i++) {
 			var row = [];
-			for (var j = 0; j < this.cols; j++) {
-				var cell = new Cell(i,j,this.w);
+			for(var j =0; j < this.cols;j++){
+				var cell = this.changeShape(i,j,shape);
 				row.push(cell);
 			}
 			this.cells.push(row);
 		}
+	}
 
+	//Initializations
+	this.setUp = function(){
+		this.setUpGrid(shapes.Rectangular);//Cell shape is rectangualr by default
 		this.start = this.cells[0][0];
 		this.end = this.cells[this.rows-1][this.cols-1];
 		this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
@@ -131,14 +152,8 @@ function Grid(height,width){
 
 	//reset Maze property when ready to re-contruct
 	this.reset = function(){
-		for (var i = 0; i < Maze.cells.length; i++) {
-			for(var j = 0 ; j < Maze.cells[i].length; j++){
-				Maze.cells[i][j].recoverWalls();
-				//clear out neighbors for each cell
-				Maze.cells[i][j].clearNeighbors();
-			}
-		}
-
+		//Clear all cells in Grid
+		this.cells.length = 0;
 		//Ready to reconstruct
 		this.done = false;		
 	}

@@ -13,14 +13,27 @@ const constructor = {
 	prim:"prim"
 }
 
+//enum type for cell shape
+const shapes = {
+	Rectangular:"Rectangular",
+	Hexagonal:"Hexagonal",
+	Triangular:"Triangular"
+}
+
+//number of walls for each shape
+const numWalls = {
+	Rectangular: 4,
+	Hexagonal: 6,
+	Triangular: 3
+}
+
 
 var chosenMeth = solver.bfs;//the chosen solver method
 var chosenConstructor = constructor.RBT;//the chosen constructor method
-
-//An predicator for drawing efffect(filling the tiles of the maze)
-var isDraw = document.getElementsByName('filling');
+var chosenShape = shapes.Rectangular;//Rectangular as the default shape
 
 
+//--------------------------------Solver Listener
 //Changes the chosen solver method over on-click event
 function chooseMeth(method){
 	chosenMeth = method;
@@ -38,6 +51,7 @@ function selectMeth(){
 	loop();
 }
 
+//-------------------------------Construtctor Listener
 //Changes the chosen constructor method over on-clikc event
 function chooseConstructor(method){
 	chosenConstructor = method;
@@ -52,6 +66,7 @@ function selectConstructor(){
 	Maze.changeConstructor(chosenConstructor);
 	//Reset Maze
 	Maze.reset();
+	Maze.setUpGrid(chosenShape);
 	loop();
 }
 
@@ -62,3 +77,7 @@ function showSteps(){
 }
 
 
+//--------------------------------Shapes of Cell
+function chooseShape(shape){
+	chosenShape = shape;
+}

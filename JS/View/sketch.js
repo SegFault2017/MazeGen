@@ -2,7 +2,7 @@ var Maze = [];
 
 function setup(){
 	// frameRate(30);
-	var cnv = createCanvas(600,600);
+	var cnv = createCanvas(601,601);
 	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();
@@ -10,7 +10,8 @@ function setup(){
 }
 
 function draw(){
-	background(51);
+	//background(51);
+	background(255);
 
 	Maze.show();
 	if (!Maze.done) {
