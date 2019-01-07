@@ -15,9 +15,9 @@ const constructor = {
 
 //enum type for cell shape
 const shapes = {
-	Rectangular:"Rectangular",
-	Hexagonal:"Hexagonal",
-	Triangular:"Triangular"
+	Rectangular:"rectangular",
+	Hexagonal:"hexagonal",
+	Triangular:"triangular"
 }
 
 //number of walls for each shape
@@ -30,7 +30,7 @@ const numWalls = {
 
 var chosenMeth = solver.bfs;//the chosen solver method
 var chosenConstructor = constructor.RBT;//the chosen constructor method
-var chosenShape = shapes.Rectangular;//Rectangular as the default shape
+
 
 
 //--------------------------------Solver Listener
@@ -63,10 +63,10 @@ function selectConstructor(){
 	if(Maze.foundPath){
 		Maze.reSolve();
 	}
+	Maze = undefined;
+	Maze = new Grid(height,width);
+	Maze.setUp();
 	Maze.changeConstructor(chosenConstructor);
-	//Reset Maze
-	Maze.reset();
-	Maze.setUpGrid(chosenShape);
 	loop();
 }
 
@@ -79,5 +79,5 @@ function showSteps(){
 
 //--------------------------------Shapes of Cell
 function chooseShape(shape){
-	chosenShape = shape;
+	Maze.shape = shape;
 }

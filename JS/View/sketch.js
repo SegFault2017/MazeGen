@@ -1,3 +1,4 @@
+
 var Maze = [];
 
 function setup(){
@@ -10,7 +11,6 @@ function setup(){
 }
 
 function draw(){
-	//background(51);
 	background(255);
 
 	Maze.show();
@@ -31,4 +31,3 @@ function draw(){
 		}	
 	}
 }
-

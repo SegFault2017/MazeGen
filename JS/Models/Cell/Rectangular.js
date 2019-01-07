@@ -16,7 +16,7 @@ Rectangular.prototype.show = function(){
 	noStroke();
 	fill(128,128,128);
 	rect(x,y,Maze.w,Maze.w);
-	stroke(this.strokeness);
+	stroke(51);
 
 	//Draw a line if the cell's wall is open
 	if(this.walls[0]){

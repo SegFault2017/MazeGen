@@ -6,6 +6,7 @@ function Grid(height,width){
 	this.start;
 	this.end;
 	this.showSteps;//Predicator for drawing effect
+	this.shape = shapes.Rectangular;
 
 	//calculate the # of cols and rows
 	this.cols = (height-1)/(this.w);
@@ -41,11 +42,11 @@ function Grid(height,width){
 	}
 
 	//Set up grid
-	this.setUpGrid = function(shape){
+	this.setUpGrid = function(){
 		for (var i = 0; i < this.rows; i++) {
 			var row = [];
 			for(var j =0; j < this.cols;j++){
-				var cell = this.changeShape(i,j,shape);
+				var cell = this.changeShape(i,j,this.shape);
 				row.push(cell);
 			}
 			this.cells.push(row);
@@ -54,12 +55,11 @@ function Grid(height,width){
 
 	//Initializations
 	this.setUp = function(){
-		this.setUpGrid(shapes.Rectangular);//Cell shape is rectangualr by default
+		this.setUpGrid(this.shape);//Cell shape is rectangualr by default
 		this.start = this.cells[0][0];
 		this.end = this.cells[this.rows-1][this.cols-1];
 		this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
 		this.solution = new BFS(this.start,this.end);
-
 
 		this.showSteps = document.getElementById('steps').checked;
 
@@ -148,16 +148,6 @@ function Grid(height,width){
 	this.toOneD = function(i,j){
 		return i*this.cols + j;
 	}
-
-
-	//reset Maze property when ready to re-contruct
-	this.reset = function(){
-		//Clear all cells in Grid
-		this.cells.length = 0;
-		//Ready to reconstruct
-		this.done = false;		
-	}
-
 
 	//toggle Drawing effects for both construtor and solver
 	this.toggleSteps = function(){
