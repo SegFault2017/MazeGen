@@ -67,6 +67,7 @@ function selectConstructor(){
 	Maze = new Grid(height,width);
 	Maze.setUp();
 	Maze.changeConstructor(chosenConstructor);
+	Maze.resizeCanvas();
 	loop();
 }
 

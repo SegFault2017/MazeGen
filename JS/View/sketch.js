@@ -7,11 +7,13 @@ function setup(){
 	cnv.parent('board');
 	Maze = new Grid(height,width);
 	Maze.setUp();
+	Maze.resizeCanvas();
 	// frameRate(10);
 }
 
+
 function draw(){
-	background(255);
+	background(51);
 
 	Maze.show();
 	if (!Maze.done) {

@@ -74,7 +74,7 @@ Cell.prototype.getNeighbors = function() {
 }
 
 
-//highlight current cell
+//highlight the cell(i,j)
 Cell.prototype.highlight = function(color){
 	var x = this.j * Maze.w;
 	var y = this.i * Maze.w;

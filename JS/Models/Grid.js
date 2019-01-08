@@ -155,4 +155,24 @@ function Grid(height,width){
 	}
 
 
+	//ResizeCanvas
+	this.resizeCanvas = function(){
+		switch(this.shape){
+			case shapes.Hexagonal:
+				var sH = this.start.hexHeight;
+				var sW = this.start.hexWidth;
+				var h = sH * this.rows + sH/2;
+				var wall0Len = ceil(this.start.wall0Len);
+				var half = this.rows/2;
+				var cutOff = sW - wall0Len;
+				var temp = ceil(half);
+				var w = wall0Len * floor(half) + sW * temp +cutOff/2;
+				resizeCanvas(h,w);
+				break;
+			case shapes.Triangular:
+				break;
+		}
+
+	}
+
 }

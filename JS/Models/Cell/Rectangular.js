@@ -1,4 +1,3 @@
-
 function Rectangular(i,j,numWall){
 	Cell.call(this,i,j,numWall);
 
@@ -13,10 +12,7 @@ Rectangular.prototype.show = function(){
 
 	var x = this.j * Maze.w;
 	var y = this.i * Maze.w;
-	noStroke();
-	fill(128,128,128);
-	rect(x,y,Maze.w,Maze.w);
-	stroke(51);
+	stroke(255);
 
 	//Draw a line if the cell's wall is open
 	if(this.walls[0]){
@@ -61,4 +57,3 @@ Rectangular.prototype.adjacentCells = function(){
 
 	return [adj1,adj2,adj3,adj4];
 }
-
