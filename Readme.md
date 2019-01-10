@@ -17,4 +17,14 @@ Generate an n x n maze and find a path using A* algorithm.
 
 
 
+## Updates
+Displaying different shapes are working and all done and here are some bugs
+1. modify Kruskal and Prims so that they can handle hexagonal shape and trianglar shape
+
+2. A* does not work on  Trianglar shape(unknown why)
+
+3. Apply Point class to hexagonal calss for  good readability
+
+
+
 
