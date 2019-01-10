@@ -6,15 +6,16 @@ function Grid(height,width){
 	this.start;
 	this.end;
 	this.showSteps;//Predicator for drawing effect
-	this.shape = shapes.Rectangular;
+	// this.shape = document.getElementById("selectShape").value;
+	this.shape = shapes.Hexagonal;
 
 	//calculate the # of cols and rows
-	this.cols = (height-1)/(this.w);
-	this.rows = (width-1)/(this.w);
+	this.cols = ceil((height-1)/(this.w));
+	this.rows = ceil((width-1)/(this.w));
 	this.foundPath = false;
 
 	//Maze Constructor
-	this.mazeConstructor;
+	this.mazeConstructor = undefined;
 
 	//solver
 	this.solution = new BFS(this.start,this.end);
@@ -22,8 +23,7 @@ function Grid(height,width){
 	//---------Methods
 	this.size =function(){
 		return this.rows * this.cols;
-	}
-
+	};
 
 
 	//Change Cell Shape
@@ -31,15 +31,12 @@ function Grid(height,width){
 		switch(shape){
 			case shapes.Rectangular:
 				return new Rectangular(i,j,numWalls.Rectangular);
-				break;
 			case shapes.Hexagonal:
 				return new Hexagonal(i,j,numWalls.Hexagonal);
-				break;
 			case shapes.Triangular:
 				return new Triangular(i,j,numWalls.Triangular);
-				break;
 		}
-	}
+	};
 
 	//Set up grid
 	this.setUpGrid = function(){
@@ -51,7 +48,7 @@ function Grid(height,width){
 			}
 			this.cells.push(row);
 		}
-	}
+	};
 
 	//Initializations
 	this.setUp = function(){
@@ -60,11 +57,9 @@ function Grid(height,width){
 		this.end = this.cells[this.rows-1][this.cols-1];
 		this.mazeConstructor = new RecursiveBackTracker(this.start,this.end);
 		this.solution = new BFS(this.start,this.end);
-
 		this.showSteps = document.getElementById('steps').checked;
 
-
-	}
+	};
 
 	//Display Maze Grid
 	this.show = function(){
@@ -73,16 +68,16 @@ function Grid(height,width){
 				this.cells[i][j].show();
 			}
 		}
-	}
+	};
 
 	//Construct Maze by using recursive Back Track
 	this.build = function (){
-		if(this.showSteps){
+		if(!this.showSteps){
 			this.mazeConstructor.constructMazeWithSteps();
 		}else{
 			this.mazeConstructor.constructMaze();
 		}
-	}
+	};
 
 
 	this.reSolve = function(){
@@ -94,7 +89,7 @@ function Grid(height,width){
 		}
 		this.foundPath = false;
 		this.findPath = false;
-	}
+	};
 
 	//Change Solver Method
 	this.changeMeth = function(method){
@@ -109,7 +104,7 @@ function Grid(height,width){
 				this.solution = new AStar(this.start,this.end);
 				break;
 		}
-	}
+	};
 
 	//Change Constructor Method
 	this.changeConstructor = function(method){
@@ -121,16 +116,16 @@ function Grid(height,width){
 			this.mazeConstructor = new Kruskal(this.star,this.end);
 				break;
 			case constructor.prim:
-			this.mazeConstructor = new Prim(this.star,this,end);
+			this.mazeConstructor = new Prim(this.star,this.end);
 				break;
 		}
-	}
+	};
 
 
 	//Solve this Maze
 	this.solve = function(){
 		this.solution.findPath();
-	}
+	};
 
 	//Unvisit all cells in Maze
 	this.resetVisited = function(){
@@ -141,38 +136,18 @@ function Grid(height,width){
 					this.cells[i][j].inFrontier = false;
 				}
 			}
-	}
+	};
 
 
 	//convert 2d index to 1d
 	this.toOneD = function(i,j){
 		return i*this.cols + j;
-	}
+	};
 
 	//toggle Drawing effects for both construtor and solver
 	this.toggleSteps = function(){
 		this.showSteps = !this.showSteps;
-	}
+	};
 
-
-	//ResizeCanvas
-	this.resizeCanvas = function(){
-		switch(this.shape){
-			case shapes.Hexagonal:
-				var sH = this.start.hexHeight;
-				var sW = this.start.hexWidth;
-				var h = sH * this.rows + sH/2;
-				var wall0Len = ceil(this.start.wall0Len);
-				var half = this.rows/2;
-				var cutOff = sW - wall0Len;
-				var temp = ceil(half);
-				var w = wall0Len * floor(half) + sW * temp +cutOff/2;
-				resizeCanvas(h,w);
-				break;
-			case shapes.Triangular:
-				break;
-		}
-
-	}
 
 }

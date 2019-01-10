@@ -37,7 +37,7 @@ function Prim(start,end){
 		var bottom = validNeighbor(cell.i+1,cell.j,cond);
 
 		return [top,right,left,bottom];
-	}
+	};
 
 	//Mark cell's valid neighbors as "in frontier"
 	this.mark = function(cell){
@@ -49,14 +49,14 @@ function Prim(start,end){
 			}
 		}
 
-	}
+	};
 
 	//Display frontier
 	this.showFrontier = function(){
 		for (var i = 0; i < this.frontier.length; i++) {
 			this.frontier[i].highlight(color(255,0,0,100));
 		}
-	}
+	};
 
 
 	//Initialize frontier
@@ -87,14 +87,14 @@ Prim.prototype.constructMaze = function(){
 		var visitedNeighbor = neighbors[floor(random(0,neighbors.length))];
 
 		//make a passage of the chosen frontier cell and its chosen neighbor
-		this.removeWalls(visitedNeighbor,next);
+		visitedNeighbor.removeWalls(next);
 		visitedNeighbor.neighbors.push(next);
 		next.neighbors.push(visitedNeighbor);
 		this.mark(next);
 	}
 	Maze.done = true;
 	Maze.resetVisited();
-}
+};
 
 Prim.prototype.constructMazeWithSteps = function() {
 	if(this.frontier.length >0){//Iterate through until the frontier set is empty
@@ -111,7 +111,7 @@ Prim.prototype.constructMazeWithSteps = function() {
 		var visitedNeighbor = neighbors[floor(random(0,neighbors.length))];
 
 		//make a passage of the chosen frontier cell and its chosen neighbor
-		this.removeWalls(visitedNeighbor,next);
+		visitedNeighbor.removeWalls(next);
 		visitedNeighbor.neighbors.push(next);
 		next.neighbors.push(visitedNeighbor);
 		this.mark(next);

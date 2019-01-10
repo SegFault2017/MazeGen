@@ -18,7 +18,7 @@ RecursiveBackTracker.prototype.constructMaze = function(){
 			this.current.neighbors.push(next);
 			next.neighbors.push(this.current);
 			this.stack.push(this.current);
-			this.removeWalls(this.current,next);
+			this.current.removeWalls(next);
 			this.current = next;
 		}else if(this.stack.length > 0){
 			var cell = this.stack.pop();
@@ -28,7 +28,7 @@ RecursiveBackTracker.prototype.constructMaze = function(){
 	}
 	Maze.done = true;
 	Maze.resetVisited();
-}
+};
 
 RecursiveBackTracker.prototype.constructMazeWithSteps = function(){
 	//Recursive backTrack
@@ -41,7 +41,7 @@ RecursiveBackTracker.prototype.constructMazeWithSteps = function(){
 			this.current.neighbors.push(next);
 			next.neighbors.push(this.current);
 			this.stack.push(this.current);
-			this.removeWalls(this.current,next);
+			this.current.removeWalls(next);
 			this.current = next;
 		}else if(this.stack.length > 0){
 			var cell = this.stack.pop();
@@ -52,5 +52,5 @@ RecursiveBackTracker.prototype.constructMazeWithSteps = function(){
 		Maze.done = true;
 		Maze.resetVisited();
 	}
-}
+};
 

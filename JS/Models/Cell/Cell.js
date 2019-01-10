@@ -42,12 +42,12 @@ function Cell(i,j,numWall){
 //Return a list of current's adjacent cells 
 Cell.prototype.adjacentCells = function(){
 
-}
+};
 
 //Display cell
 Cell.prototype.show= function(){
 
-}
+};
 
 
 //check if this.Neighbous have benn visited or not
@@ -71,16 +71,19 @@ Cell.prototype.getNeighbors = function() {
 		return undefined;
 	}
 
-}
+};
 
 
 //highlight the cell(i,j)
 Cell.prototype.highlight = function(color){
-	var x = this.j * Maze.w;
-	var y = this.i * Maze.w;
-	noStroke();
-	fill(color);
-	rect(x,y,Maze.w,Maze.w);
-}
+	
+};
+
+//Remove Walls when constructing
+Cell.prototype.removeWalls = function(next){
+
+};
+
+
 
 

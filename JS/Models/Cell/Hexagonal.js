@@ -1,6 +1,7 @@
 //Contains the edge points of the hexagon cell
 var edgePoints =[];
 var isInitialized = false;
+
 //Return a list of edge points of hexagon cell(0,0)
 function getEdgePts(angle,radius,numWall){
 	//Initializes edgePoints
@@ -11,11 +12,6 @@ function getEdgePts(angle,radius,numWall){
 		pair.push(sx,sy);
 		edgePoints.push(pair);
 	}
-}
-
-//Calculate the distance from wall one to wall two
-function distWall(wallOne,wallTwo){
-	return dist(wallOne[0],wallOne[1],wallTwo[0],wallTwo[1]);
 }
 
 
@@ -35,11 +31,6 @@ function Hexagonal(i,j,numWall){
 		isInitialized = true;
 		getEdgePts(this.angle,this.radius,this.numWall);
 	}
-
-	//length of wall[0]
-	this.wall0Len = distWall(edgePoints[0],edgePoints[1]);
-
-	
 }
 
 
@@ -58,7 +49,6 @@ Hexagonal.prototype.hexagon = function(x,y,radius,numWall){
 //Apply transformation to shape
 Hexagonal.prototype.applyTrans = function() {
 	translate(this.hexHeight ,this.hexWidth/2);
-	// translate(this.hexWidth/2,this.hexHeight/2);
 	scale(-1,1);
 	rotate(PI/2);
 };
@@ -78,14 +68,14 @@ Hexagonal.prototype.afterTransOnHex = function(x,y1,y2) {
 
 //Display hexagonal cell
 Hexagonal.prototype.show = function() {
-	fill(128,128,128);
 	var x = this.hexWidth;
 	var y = this.hexHeight;
 	var spacingX = this.j * (3*x/4);
 	var spacingY = this.i * y;
-	stroke(255);
+	stroke(51);
 
 	//Draw a line if the cell's  wall is open
+	//**********************Wall number DEPENDS on edgePoints*******************
 	for (var i = 0; i < edgePoints.length-1; i++) {
 		if(this.walls[i]){
 			var sx,sx2,sy,sy2;
@@ -98,8 +88,10 @@ Hexagonal.prototype.show = function() {
 				sy = spacingY - y/2 + edgePoints[i][1];
 				sy2 = spacingY  - y/2 + edgePoints[i+1][1];
 			}
+
 			push();
 			this.applyTrans();
+
 			if(i != edgePoints.length-1){
 				line(sx,sy,sx2,sy2);
 			}else{
@@ -125,11 +117,86 @@ Hexagonal.prototype.show = function() {
 };
 
 //Highlight the hex cell(i,j)
-// Hexagonal.prototype.highlight = function(color){
+Hexagonal.prototype.highlight = function(color){
+	noStroke();
+	fill(color);
+	var x = this.hexWidth;
+	var y = this.hexHeight;
+	var spacingX = this.j * (3*x/4);
+	var spacingY = this.i * y;
+	this.afterTransOnHex(spacingX,spacingY,spacingY - y/2);
+};
 
-// }
 
-
+//Return a list of current's adjacent cells
 Hexagonal.prototype.adjacentCells = function() {
-	
+	var adj1 = index(this.i-1,this.j);
+	var adj2 = index(this.i,this.j+1);
+	var adj3;//*
+	var adj4 = index(this.i+1,this.j);
+	var adj5;//*
+	var adj6 = index(this.i,this.j-1);
+
+	if(this.j % 2 == 0){
+		adj3 = index(this.i+1,this.j+1);
+		adj5 = index(this.i+1,this.j-1);
+	}else{
+		adj3 = index(this.i-1,this.j+1);
+		adj5 = index(this.i-1,this.j-1);
+	}
+
+
+
+	return [adj1,adj2,adj3,adj4,adj5,adj6];
+};
+
+
+
+//Version of removeWall
+//2.Hexagonal
+Hexagonal.prototype.removeWalls = function(next) {
+	var diffY = this.i - next.i;
+	var diffX = next.j - this.j;
+	if(diffY < 0){//current is on top of next
+		if(diffX > 0){
+			this.walls[0] = false;
+			next.walls[3] = false;
+		}else if(diffX < 0){
+			this.walls[2] = false;
+			next.walls[5] = false;
+		}else{
+			this.walls[1] = false;
+			next.walls[4] = false;
+		}
+		
+	}else if(diffY > 0){//current is below next
+		if(diffX > 0){
+			this.walls[5] = false;
+			next.walls[2] = false;
+		}else if(diffX < 0){
+			this.walls[3] = false;
+			next.walls[0] = false;
+		}else{
+			this.walls[4] = false;
+			next.walls[1] = false;
+		}
+	}else{//current and next are both at the same level
+		if(this.j % 2 == 0){//if current is shifted down 
+			if(diffX > 0){
+				this.walls[5] = false;
+				next.walls[2]  =false;
+			}else{
+				this.walls[3] = false;
+				next.walls[0] = false;
+			}
+		}else{
+			if(diffX > 0){
+				this.walls[0] = false;
+				next.walls[3] = false;
+			}else{
+				this.walls[2] = false;
+				next.walls[5] = false;
+			}
+		}
+	}
 };

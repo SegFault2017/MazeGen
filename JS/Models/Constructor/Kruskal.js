@@ -29,7 +29,7 @@ var makeEdges = function(){
 	}
 
 	return edgeList;
-}
+};
 
 function Kruskal(start,end){
 	Constructor.call(start,end);
@@ -64,7 +64,7 @@ Kruskal.prototype.constructMaze = function() {
 
 		if(rootA != rootB){
 			this.disjointSet.union(indexA,indexB);
-			this.removeWalls(edge[0],edge[1]);
+			edge[0].removeWalls(edge[1]);
 			edge[0].neighbors.push(edge[1]);
 			edge[1].neighbors.push(edge[0]);
 		}
@@ -73,7 +73,7 @@ Kruskal.prototype.constructMaze = function() {
 	Maze.done = true;
 	Maze.resetVisited();
 
-}
+};
 
 Kruskal.prototype.constructMazeWithSteps = function() {
 	if(this.disjointSet.subsetSize > 1){
@@ -93,7 +93,7 @@ Kruskal.prototype.constructMazeWithSteps = function() {
 
 		if(rootA != rootB){
 			this.disjointSet.union(indexA,indexB);
-			this.removeWalls(edge[0],edge[1]);
+			edge[0].removeWalls(edge[1]);
 			edge[0].neighbors.push(edge[1]);
 			edge[1].neighbors.push(edge[0]);
 		}
