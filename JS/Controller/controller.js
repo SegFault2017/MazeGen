@@ -63,11 +63,11 @@ function selectConstructor(){
 	if(Maze.foundPath){
 		Maze.reSolve();
 	}
+	
 	Maze = undefined;
 	Maze = new Grid(height,width);
 	Maze.setUp();
 	Maze.changeConstructor(chosenConstructor);
-	Maze.resizeCanvas();
 	loop();
 }
 
@@ -75,10 +75,4 @@ function selectConstructor(){
 //listener for Filling effect event
 function showSteps(){
 	Maze.toggleSteps();
-}
-
-
-//--------------------------------Shapes of Cell
-function chooseShape(shape){
-	Maze.shape = shape;
 }

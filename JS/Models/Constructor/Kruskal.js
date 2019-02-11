@@ -1,6 +1,6 @@
 //Construct edgeList
 //Contains all edges of all possible vertices combinationsv
-var makeEdges = function(){
+function makeEdges(){
 	
 	var edgeList =[];
 	for (var i = 0; i < Maze.cells.length; i++) {
@@ -29,12 +29,88 @@ var makeEdges = function(){
 	}
 
 	return edgeList;
-};
+}
+
+function makeEdgesForH(){
+	var edgeList =[];
+	for (var i = 0; i < Maze.cells.length;i++){
+		for (var j = 0; j < Maze.cells[i].length-1;j++){
+			var edge =[];
+			var current = Maze.cells[i][j];
+			var leftCell = Maze.cells[i][j+1];
+			edge.push(current,leftCell);
+			edgeList.push(edge);
+			if(i!=0){
+				var topCell = Maze.cells[i-1][j];
+				var edge = [];
+				edge.push(current,topCell);
+				edgeList.push(edge);
+			}
+
+			if(j%2 == 0){
+				if(i != Maze.rows-1){
+					var edge = [];
+					var bottomRight = Maze.cells[i+1][j+1];
+					edge.push(current,bottomRight);
+					edgeList.push(edge);
+				}
+			}else{
+				if(i != 0){
+					var edge = [];
+					var topRight =Maze.cells[i-1][j+1];
+					edge.push(current,topRight);
+					edgeList.push(edge);
+				}
+
+			}
+		}
+	}
+
+	for(var i = 0;i < Maze.cells.length-1;i++){
+		var edge =[];
+		edge.push(Maze.cells[i][Maze.cols-1]);
+		edge.push(Maze.cells[i+1][Maze.cols-1]);
+		edgeList.push(edge);
+	}
+	
+	return edgeList;
+}
+
+function makeEdgesForT(){
+	var edgeList =[];
+
+	for(var i =0 ; i < Maze.cells.length;i++){
+		for(var j = 0 ; j < Maze.cells[i].length-1;j++){
+				var edge = [];
+				var current = Maze.cells[i][j];
+				var next = Maze.cells[i][j+1];
+				edge.push(current,next);
+				edgeList.push(edge);
+		}
+	}
+
+	for(var i = 0 ;i < Maze.cells.length-1;i++){
+		for(var j = 0;j < Maze.cells[i].length;j++){
+			var current = Maze.cells[i][j];
+			if(current.isUpward){
+				var edge =[];
+				var bottom = Maze.cells[i+1][j];
+				edge.push(current,bottom);
+				edgeList.push(edge);
+			}
+		}
+		
+	}
+
+
+
+	return edgeList;
+}
 
 function Kruskal(start,end){
 	Constructor.call(start,end);
 	this.disjointSet = new DisJointSet(Maze.size());
-	var inOrderEdge = makeEdges();
+	var inOrderEdge = makeEdgesForT();
 	//Sort edges by random
 	this.edgeList = shuffle(inOrderEdge);
 
@@ -73,7 +149,7 @@ Kruskal.prototype.constructMaze = function() {
 	Maze.done = true;
 	Maze.resetVisited();
 
-};
+}
 
 Kruskal.prototype.constructMazeWithSteps = function() {
 	if(this.disjointSet.subsetSize > 1){

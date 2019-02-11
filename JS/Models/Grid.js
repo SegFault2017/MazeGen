@@ -7,7 +7,7 @@ function Grid(height,width){
 	this.end;
 	this.showSteps;//Predicator for drawing effect
 	// this.shape = document.getElementById("selectShape").value;
-	this.shape = shapes.Hexagonal;
+	this.shape = document.getElementById("selectShape").value;
 
 	//calculate the # of cols and rows
 	this.cols = ceil((height-1)/(this.w));
@@ -72,7 +72,7 @@ function Grid(height,width){
 
 	//Construct Maze by using recursive Back Track
 	this.build = function (){
-		if(!this.showSteps){
+		if(this.showSteps){
 			this.mazeConstructor.constructMazeWithSteps();
 		}else{
 			this.mazeConstructor.constructMaze();

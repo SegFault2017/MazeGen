@@ -9,8 +9,8 @@ function getEdgePts(angle,radius,numWall){
 		var pair = [];
 		var sx = cos(i) * radius;
 		var sy = sin(i) * radius ;
-		pair.push(sx,sy);
-		edgePoints.push(pair);
+		var p = new Point(sx,sy);
+		edgePoints.push(p);
 	}
 }
 
@@ -27,10 +27,12 @@ function Hexagonal(i,j,numWall){
 	this.hexHeight = abs(2*(floor(sin(4*this.angle)*this.radius)));
 
 	//Initilize edgePoints
-	if(!isInitialized){
-		isInitialized = true;
+	if(this.i == 0 && this.j == 0){
 		getEdgePts(this.angle,this.radius,this.numWall);
 	}
+
+	
+	
 }
 
 
@@ -38,17 +40,17 @@ Hexagonal.prototype = Object.create(Cell.prototype);
 
 //Draw a hexagon
 Hexagonal.prototype.hexagon = function(x,y,radius,numWall){
-	var pairs = edgePoints;
+	var points = edgePoints;
 	beginShape();
-	for (var i = 0; i < pairs.length; i++) {
-		vertex(x+pairs[i][0],y + pairs[i][1]);
+	for (var i = 0; i < points.length; i++) {
+		vertex(x+points[i].x,y + points[i].y);
 	}
 	endShape(CLOSE);
 }
 
 //Apply transformation to shape
 Hexagonal.prototype.applyTrans = function() {
-	translate(this.hexHeight ,this.hexWidth/2);
+	translate(this.hexHeight ,this.hexWidth/2 + 35);
 	scale(-1,1);
 	rotate(PI/2);
 };
@@ -68,7 +70,7 @@ Hexagonal.prototype.afterTransOnHex = function(x,y1,y2) {
 
 //Display hexagonal cell
 Hexagonal.prototype.show = function() {
-	var x = this.hexWidth;
+	var x = this.hexWidth ;
 	var y = this.hexHeight;
 	var spacingX = this.j * (3*x/4);
 	var spacingY = this.i * y;
@@ -79,14 +81,14 @@ Hexagonal.prototype.show = function() {
 	for (var i = 0; i < edgePoints.length-1; i++) {
 		if(this.walls[i]){
 			var sx,sx2,sy,sy2;
-			sx = spacingX + edgePoints[i][0];
-			sx2 = spacingX + edgePoints[i+1][0];
+			sx = spacingX + edgePoints[i].x;
+			sx2 = spacingX + edgePoints[i+1].x;
 			if(this.j % 2 == 0){
-				sy = spacingY + edgePoints[i][1];
-				sy2 = spacingY + edgePoints[i+1][1];
+				sy = spacingY + edgePoints[i].y;
+				sy2 = spacingY + edgePoints[i+1].y;
 			}else{
-				sy = spacingY - y/2 + edgePoints[i][1];
-				sy2 = spacingY  - y/2 + edgePoints[i+1][1];
+				sy = spacingY - y/2 + edgePoints[i].y;
+				sy2 = spacingY  - y/2 + edgePoints[i+1].y;
 			}
 
 			push();
@@ -95,8 +97,8 @@ Hexagonal.prototype.show = function() {
 			if(i != edgePoints.length-1){
 				line(sx,sy,sx2,sy2);
 			}else{
-				 var edgeZeo = edgePoints[0];
-				 line(sx,sy,this.i * edgeZeo[0],this.j * edgeZeo[1]);
+				 var edgeZeo = edgePoints.x;
+				 line(sx,sy,this.i * edgeZeo.x,this.j * edgeZeo.y);
 			}
 			pop();
 		}
@@ -125,7 +127,7 @@ Hexagonal.prototype.highlight = function(color){
 	var spacingX = this.j * (3*x/4);
 	var spacingY = this.i * y;
 	this.afterTransOnHex(spacingX,spacingY,spacingY - y/2);
-};
+}
 
 
 //Return a list of current's adjacent cells

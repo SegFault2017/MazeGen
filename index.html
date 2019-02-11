@@ -34,7 +34,7 @@
 
         <div id="shapes">
             <label>Cell Shapes:</label>
-            <select onchange="chooseShape(this.value)">
+            <select id ="selectShape" >
               <option value="rectangular">Rectangular</option>
               <option value="hexagonal">Hexagonal</option>
               <option value="triangular">Triangular</option>
@@ -53,6 +53,7 @@
       <script src="JS/Controller/controller.js"></script>
 
       <!-- Maze Class -->
+      <script src="JS/Models/Point.js"></script>
       <script src="JS/Models/Grid.js"></script>
       <script src="JS/Models/Cell/Cell.js"></script>
       <script src="JS/Models/Cell/Rectangular.js"></script>
