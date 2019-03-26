@@ -12,8 +12,6 @@ function setup(){
 
 function draw(){
 	background(255);
-	// Maze.cells[0][1].highlight(color(0,255,0));
-	// Maze.cells[1][1].;
 
 	Maze.show();
 	if (!Maze.done) {

@@ -6,7 +6,6 @@ function Grid(height,width){
 	this.start;
 	this.end;
 	this.showSteps;//Predicator for drawing effect
-	// this.shape = document.getElementById("selectShape").value;
 	this.shape = document.getElementById("selectShape").value;
 
 	//calculate the # of cols and rows

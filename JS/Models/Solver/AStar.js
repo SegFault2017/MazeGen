@@ -52,7 +52,7 @@ AStar.prototype.findPath = function(end) {
 					this.calF(neighbor,this.end,gCost);
 					neighbor.parent = current;
 					this.queue.push(neighbor);
-				}	
+				}
 			}
 		}
 

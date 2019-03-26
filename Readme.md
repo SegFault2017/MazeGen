@@ -18,10 +18,7 @@ Generate an n x n maze and find a path using A* algorithm.
 
 
 ## Updates
-Displaying different shapes are working and all done and here are some bugs
-1. A* does not work on  Trianglar shape(unknown why)
-
-3. Apply Point class to hexagonal calss for good readability
+No bugs as I know.
 
 
 

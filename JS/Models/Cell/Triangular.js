@@ -15,7 +15,7 @@ function drawTri(tri){
 }
 
 
-//Determines whether  the cell(i,j) is pointing upward or downward
+//Determines whether cell(i,j) is pointing upward or downward
 function isPointingUp(i,j){
 	if(i %2 == 0 ){//even index rows
 		if(j %2 == 0){//cells in even index cols are pointing upward
@@ -36,20 +36,20 @@ function isPointingUp(i,j){
 function Triangular(i,j,numWall){
 	Cell.call(this,i,j,numWall);
 	this.baseLen = Maze.w;
-	this.h = pythagorean(this.baseLen,this.baseLen/2);
+	this.height = pythagorean(this.baseLen,this.baseLen/2);
 	this.isUpward = isPointingUp(this.i,this.j);//indcates whether this cell is pointing upward or downward
 
 	if(this.i == 0 && this.j == 0){
 		//Initilizes upward triangle
 		var p1,p2,p3;
 		p1 = new Point(this.baseLen/2,0);
-		p2 = new Point(0,this.h);
-		p3 = new Point(this.baseLen,this.h);
+		p2 = new Point(0,this.height);
+		p3 = new Point(this.baseLen,this.height);
 		upTri.push(p1,p2,p3);
 
 		//Initializes downward triangle
 		p1 = new Point(0,0);
-		p2 = new Point(this.baseLen/2,this.h);
+		p2 = new Point(this.baseLen/2,this.height);
 		p3 = new Point(this.baseLen,0);
 		
 		downTri.push(p1,p2,p3);
@@ -94,7 +94,7 @@ function drawTriWithLine(isUpward,walls) {
 //Apply transformation to cell and display it
 Triangular.prototype.applyTrans = function(fun1) {
 	push();
-	translate(this.j * this.baseLen/2,this.i * this.h);
+	translate(this.j * this.baseLen/2,this.i * this.height);
 	fun1(this.isUpward,this.walls);
 	pop();
 };

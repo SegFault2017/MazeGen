@@ -39,9 +39,42 @@ function Prim(start,end){
 		return [top,right,left,bottom];
 	};
 
+	this.getValidNeighborForT = function(cell,cond){
+		var adj1;
+		var adj2 = validNeighbor(cell.i,cell.j-1,cond);
+		var adj3 = validNeighbor(cell.i,cell.j+1,cond)
+		if(cell.isUpward){
+			adj1 = validNeighbor(cell.i+1,cell.j,cond);
+		}else{
+			adj1 = validNeighbor(cell.i-1,cell.j,cond);
+		}
+
+		return [adj1,adj2,adj3];
+
+	}
+
+
+	this.getValidNeigh = function(cell,cond){
+		var neighbors;
+		switch(Maze.shape){
+			case shapes.Rectangular:
+				neighbors = this.getValidNeighbor(cell,cond);
+				break;
+			case shapes.Hexagonal:
+				neighbors = this.getValidNeighbor(cell,cond);
+				break;
+			case shapes.Triangular:
+				neighbors = this.getValidNeighborForT(cell,cond);
+				break;
+			
+		}
+		return neighbors;
+
+	}
+
 	//Mark cell's valid neighbors as "in frontier"
 	this.mark = function(cell){
-		var neighbors = this.getValidNeighbor(cell,false);
+		var neighbors = this.getValidNeigh(cell,false);
 		for (var i = 0; i < neighbors.length; i++) {
 			if(neighbors[i] && !neighbors[i].inFrontier){
 				neighbors[i].inFrontier = true;
@@ -83,7 +116,7 @@ Prim.prototype.constructMaze = function(){
 		this.frontier.splice(rand,1);
 
 		//choose a random valid neighbor of the chosen frontier cell
-		var neighbors = this.getValidNeighbor(next,true).filter(n => n != undefined);
+		var neighbors = this.getValidNeigh(next,true).filter(n => n != undefined);
 		var visitedNeighbor = neighbors[floor(random(0,neighbors.length))];
 
 		//make a passage of the chosen frontier cell and its chosen neighbor
@@ -107,7 +140,7 @@ Prim.prototype.constructMazeWithSteps = function() {
 		this.frontier.splice(rand,1);
 
 		//choose a random valid neighbor of the chosen frontier cell
-		var neighbors = this.getValidNeighbor(next,true).filter(n => n != undefined);
+		var neighbors = this.getValidNeigh(next,true).filter(n => n != undefined);
 		var visitedNeighbor = neighbors[floor(random(0,neighbors.length))];
 
 		//make a passage of the chosen frontier cell and its chosen neighbor

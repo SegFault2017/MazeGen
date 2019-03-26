@@ -110,7 +110,20 @@ function makeEdgesForT(){
 function Kruskal(start,end){
 	Constructor.call(start,end);
 	this.disjointSet = new DisJointSet(Maze.size());
-	var inOrderEdge = makeEdgesForT();
+	var inOrderEdge;
+	switch(Maze.shape){
+		case shapes.Rectangular:
+			inOrderEdge = makeEdges();
+			break;
+		case shapes.Triangular:
+			inOrderEdge = makeEdgesForT();
+			break;
+		case shapes.Hexagonal:
+			inOrderEdge = makeEdgesForH();
+			break;
+		
+	}
+	
 	//Sort edges by random
 	this.edgeList = shuffle(inOrderEdge);
 
