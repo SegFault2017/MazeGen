@@ -39,6 +39,27 @@ function Prim(start,end){
 		return [top,right,left,bottom];
 	};
 
+	this.getValidNeighborForH = function(cell,cond){
+		var north = validNeighbor(cell.i-1,cell.j,cond);
+		var south = validNeighbor(cell.i+1,cell.j,cond);
+		var east = validNeighbor(cell.i,cell.j+1,cond);
+		var west = validNeighbor(cell.i,cell.j-1,cond);
+
+		var adj1,adj2;
+
+		if(this.j %2 == 0){
+			adj1 = validNeighbor(cell.i-1,cell.j+1,cond);
+			adj2 = validNeighbor(cell.i-1,cell.j-1,cond);
+		}else{
+			adj1 = validNeighbor(cell.i+1,cell.j+1,cond);
+			adj2 = validNeighbor(cell.i+1,cell.j-1,cond);
+
+		}
+
+		return [north,south,east,west,adj1,adj2];
+
+	}
+
 	this.getValidNeighborForT = function(cell,cond){
 		var adj1;
 		var adj2 = validNeighbor(cell.i,cell.j-1,cond);
@@ -52,6 +73,8 @@ function Prim(start,end){
 		return [adj1,adj2,adj3];
 
 	}
+
+
 
 
 	this.getValidNeigh = function(cell,cond){

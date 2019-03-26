@@ -10,7 +10,6 @@ Generate an n x n maze and find a path using A* algorithm.
 
 
 ## Solver Methods
-
 1. BFS
 2. DFS
 3. A* by Manhanttan
@@ -19,7 +18,3 @@ Generate an n x n maze and find a path using A* algorithm.
 
 ## Updates
 No bugs as I know.
-
-
-
-
