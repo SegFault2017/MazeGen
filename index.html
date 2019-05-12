@@ -19,7 +19,8 @@
   				  <option value="prim">Prim's</option>
   				</select>
 
-				  <button type="button" onclick="selectConstructor()">Generate!</button>
+          <button type="button" onclick="selectConstructor()">Generate!</button>
+          <label id="constructingT">Constructing Time:</label>
   			</div>
 			
   			<div id = "solve">        
@@ -28,8 +29,10 @@
   				  <option value="bfs">BFS</option>
   				  <option value="dfs">DFS</option>
   				  <option value="aStar">A* (Manhanttan)</option>
-				  </select> 
+				  </select>  
             <button type="button" onclick="selectMeth()">Solve!</button> 
+            <label id="solvingT">Solving Time:</label>
+
         </div>
 
         <div id="shapes">
@@ -40,6 +43,7 @@
               <option value="triangular">Triangular</option>
             </select>
       </div>
+
   		</div>  
   	</div>
 

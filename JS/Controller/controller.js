@@ -20,7 +20,7 @@ const shapes = {
 	Triangular:"triangular"
 }
 
-//number of walls for each shape
+//number of walls for each shapeda
 const numWalls = {
 	Rectangular: 4,
 	Hexagonal: 6,
@@ -30,6 +30,8 @@ const numWalls = {
 
 var chosenMeth = solver.bfs;//the chosen solver method
 var chosenConstructor = constructor.RBT;//the chosen constructor method
+
+
 
 
 

@@ -19,6 +19,9 @@ function Grid(height,width){
 	//solver
 	this.solution = new BFS(this.start,this.end);
 
+
+	//Runtime
+
 	//---------Methods
 	this.size =function(){
 		return this.rows * this.cols;
@@ -123,7 +126,9 @@ function Grid(height,width){
 
 	//Solve this Maze
 	this.solve = function(){
+		this.solvingInitial = performance.now();
 		this.solution.findPath();
+
 	};
 
 	//Unvisit all cells in Maze

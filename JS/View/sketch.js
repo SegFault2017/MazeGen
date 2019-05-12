@@ -7,7 +7,7 @@ function setup(){
 	Maze = new Grid(height ,width );
 	Maze.setUp();
 	// frameRate(5);
-}
+} 
 
 
 function draw(){
