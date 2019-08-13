@@ -18,4 +18,4 @@ Find a unqiue path on the maze by using search algorithms learnt from course cs4
 
 
 ## Updates
-No bugs as I know.
+No bugs as I know so far.
