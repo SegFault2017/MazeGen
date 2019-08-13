@@ -1,5 +1,6 @@
 ## Maze Generator and Path Finding
-Generate an n x n maze and find a path using A* algorithm.
+Randoly generate an n x n maze by using graph algorithms learnt from course cs341.
+Find a unqiue path on the maze by using search algorithms learnt from course cs466.
 
 ## Constructor Methods
 
